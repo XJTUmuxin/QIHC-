@@ -1,0 +1,25 @@
+0 clear.sh 脚本文件清除除raw_L,raw_S,src之外的所有目录
+1 canu 组装L得到ref  通过执行assemble.sh脚本文件
+2 blasr 将L map到ref上，得到L%.sam文件  通过执行mapL.sh脚本文件
+3 mapLToRef 读取L%.sam文件，获取map结果，生成L%_mapping_result.txt文件；区分Lu和Lm，生成set_of_Lu.txt和set_of_Lm.txt文件。
+4 blasr 将S map到ref上，得到S%.sam文件  通过执行mapL_to_ref.sh脚本文件
+5 mapSToRef 读取S%.sam文件，获取map结果，生成S%_ref_mapping_result.txt文件; 
+6 blasr 将S map到Lu上，得到S%_L%.sam文件    通过执行mapS_Lu.sh脚本文件
+7 mapSToLu  读取S%_L%.sam文件，读取S到L的map结果，生成S%_mapping_result.txt文件；
+8 judge_and_correct 
+    一：判断Lu的杂合性并根据杂合性进行纠错
+    二：判断Lm的杂合性并根据杂合性进行纠错
+
+文件目录    
+            ------bin  存放可执行文件和脚本文件
+            ------src  代码存放
+            ------raw_L   存放未处理过的三代测序数据
+            ------raw_S   存放未处理过的二代测序数据
+            ------ref     存放组装后的参考序列
+            ------Lmap    存放L映射到ref上生成的sam文件
+            ------Lmap_result   存放读取L映射后的sam文件生成的映射结果txt文件，以及set_of_Lu.txt和set_of_Lm.txt文件
+            ------SLmap    存放S映射到Lu上生成的sam文件
+            ------SLmap_result   存放读取S映射到Lu后的sam文件生成的映射结果txt文件
+            ------SRmap   存放S映射到Ref上生成的sam文件
+            ------SRmap_result   存放读取S映射到Ref后的sam文件生成的映射结果txt文件
+            ------correct_L     存放纠错过的L序列
